@@ -1,24 +1,151 @@
-.LabelText{
+/* LabelText.css - RisOnMe 라이브러리 활용한 인터랙티브 라벨 텍스트 */
+.LabelText {
     display: flex;
-    gap: 10px;
-   font-size:25px;
-   padding: 15px 50px;
+    align-items: center;
+    gap: 15px;
+    font-size: 28px;
+    padding: 20px 50px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInLeft 0.6s ease-out;
 }
 
-.LabelText .label{
-  min-width: 60px;
- 
+.LabelText::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(102, 126, 234, 0.05) 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.LabelText .input{
+.LabelText:hover::before {
+    opacity: 1;
+}
+
+.LabelText .label {
+    min-width: 80px;
+    font-weight: 600;
+    color: #2c3e50;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.LabelText:hover .label {
+    color: #667eea;
+    transform: scale(1.05);
+}
+
+.LabelText .input {
     flex: 1;
-    border-radius: 3px;
-    font-size:1em;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1em;
+    padding: 12px 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
 }
 
-.LabelText .input_disabled{
+.LabelText .input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.LabelText .input::placeholder {
+    color: #bdc3c7;
+    transition: color 0.3s ease;
+}
+
+.LabelText .input:focus::placeholder {
+    color: #667eea;
+}
+
+.LabelText .input_disabled {
     flex: 1;
-    border:none;
-    font-size:1em;
+    border: 2px solid #f0f0f0;
+    border-radius: 8px;
+    font-size: 1em;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
 }
 
+.LabelText .input_disabled:hover {
+    background: #e9ecef;
+}
+
+/* 애니메이션 키프레임 */
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 순차적 애니메이션을 위한 지연 클래스 */
+.LabelText:nth-child(1) { animation-delay: 0.1s; }
+.LabelText:nth-child(2) { animation-delay: 0.2s; }
+.LabelText:nth-child(3) { animation-delay: 0.3s; }
+.LabelText:nth-child(4) { animation-delay: 0.4s; }
+.LabelText:nth-child(5) { animation-delay: 0.5s; }
+
+/* 에러 상태 스타일 */
+.LabelText.error .input {
+    border-color: #e74c3c;
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+}
+
+.LabelText.error .label {
+    color: #e74c3c;
+}
+
+/* 성공 상태 스타일 */
+.LabelText.success .input {
+    border-color: #27ae60;
+    box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.2);
+}
+
+.LabelText.success .label {
+    color: #27ae60;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .LabelText {
+        font-size: 24px;
+        padding: 15px 30px;
+        gap: 10px;
+    }
+    
+    .LabelText .label {
+        min-width: 60px;
+    }
+    
+    .LabelText .input,
+    .LabelText .input_disabled {
+        font-size: 0.9em;
+        padding: 10px 14px;
+    }
+}

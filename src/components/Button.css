@@ -1,24 +1,120 @@
-.Button{
-    background-color: rgb(236, 236, 236);
+/* Button.css - RisOnMe 라이브러리 활용한 인터랙티브 버튼 */
+.Button {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     cursor: pointer;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 12px;
+    padding: 14px 28px;
     font-size: 18px;
-    white-space: nowrap;/*이버튼안에 있는 text가 화면이 줄어들어도 줄바꿈되지않도록 한다.*/
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: scale(1);
+    letter-spacing: 0.5px;
 }
 
-.Button_button{
-    background-color: rgb(100, 201, 100);    
-    color: white;
-  }
-  
-  .Button_reset{
-      background-color: rgb(86, 131, 253);    
-      color: white;
-  }
+.Button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: width 0.6s, height 0.6s;
+    transform: translate(-50%, -50%);
+}
 
-  .detail{
-    background-color: rgb(76, 198, 243);    
+.Button:hover {
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.Button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.Button:active {
+    transform: scale(0.98);
+}
+
+.Button_button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-  }
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.Button_button:hover {
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.Button_reset {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+}
+
+.Button_reset:hover {
+    box-shadow: 0 8px 25px rgba(79, 172, 254, 0.4);
+    background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+}
+
+.detail {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+}
+
+.detail:hover {
+    box-shadow: 0 8px 25px rgba(240, 147, 251, 0.4);
+    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+}
+
+/* 펄스 애니메이션 */
+.Button.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+    }
+}
+
+/* 로딩 애니메이션 */
+.Button.loading {
+    pointer-events: none;
+    position: relative;
+}
+
+.Button.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

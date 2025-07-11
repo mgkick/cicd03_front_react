@@ -1,9 +1,200 @@
+/* App.css - RisOnMe 라이브러리 활용한 메인 앱 레이아웃 */
 .App {
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* Header, content, Footer */
-  height: 100vh; /* 전체 화면 높이 */
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    animation: appFadeIn 1s ease-out;
 }
 
- .AppManin{
-  overflow: auto;
-} 
+.App::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    opacity: 0.03;
+    z-index: -1;
+    animation: backgroundPulse 4s ease-in-out infinite;
+}
+
+.AppMain {
+    overflow: auto;
+    position: relative;
+    padding: 20px 0;
+    transition: all 0.3s ease;
+}
+
+.AppMain::-webkit-scrollbar {
+    width: 8px;
+}
+
+.AppMain::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.AppMain::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.AppMain::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+/* 페이지 전환 애니메이션 */
+.page-enter {
+    opacity: 0;
+    transform: translateX(100px);
+}
+
+.page-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.page-exit-active {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 로딩 스피너 */
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* 애니메이션 키프레임 */
+@keyframes appFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes backgroundPulse {
+    0%, 100% {
+        opacity: 0.03;
+    }
+    50% {
+        opacity: 0.08;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* 모달 오버레이 애니메이션 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .App {
+        grid-template-rows: auto 1fr auto;
+    }
+    
+    .AppMain {
+        padding: 15px 0;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        width: 95%;
+    }
+}
+
+/* 다크 테마 지원 */
+@media (prefers-color-scheme: dark) {
+    .App::before {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+        opacity: 0.1;
+    }
+    
+    .AppMain::-webkit-scrollbar-track {
+        background: #34495e;
+    }
+    
+    .modal-content {
+        background: #2c3e50;
+        color: white;
+    }
+}

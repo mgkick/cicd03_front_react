@@ -1,29 +1,140 @@
-.Header{
+/* Header.css - RisOnMe 라이브러리 활용한 모던 헤더 */
+.Header {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     justify-content: flex-start;
-    padding: 30px;
-    background-color: rgb(67, 119, 223);
-    font-size: 25px;
+    align-items: center;
+    padding: 35px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-size: 28px;
     color: white;
-    border-radius: 5px;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+    animation: slideInDown 0.8s ease-out;
 }
 
-a{
+.Header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: backgroundShine 4s ease-in-out infinite;
+}
+
+.Header > * {
+    position: relative;
+    z-index: 2;
+}
+
+a {
     text-decoration: none;
     color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
 }
 
-a:hover{
-    text-decoration: underline;
-    color: pink;
+a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
 }
 
-.Header .login{
+a:hover {
+    text-decoration: none;
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+a:hover::before {
+    left: 100%;
+}
+
+a:active {
+    transform: translateY(0);
+}
+
+.Header .login {
     flex: 1;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
 }
 
-.Header .login > span{
-  margin-right: 20px;
+.Header .login > span {
+    margin-right: 20px;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.Header .login > span:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* 애니메이션 키프레임 */
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes backgroundShine {
+    0%, 100% {
+        opacity: 0.3;
+        transform: translateX(-100%);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateX(100%);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .Header {
+        font-size: 24px;
+        padding: 25px 20px;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .Header .login {
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .Header .login > span {
+        margin-right: 0;
+        font-size: 20px;
+    }
 }

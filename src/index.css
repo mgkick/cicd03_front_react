@@ -1,27 +1,264 @@
+/* index.css - RisOnMe 라이브러리 활용한 글로벌 스타일 */
 @font-face {
-  font-family: "NanumPenScript";
-  src: url("/NanumPenScript-Regular.ttf");
+    font-family: "NanumPenScript";
+    src: url("/NanumPenScript-Regular.ttf");
+    font-display: swap;
 }
 
-html, body{
-  margin: 0px;
-  width:100%;
-  background-color: rgb(246, 246, 246);
-  height: 100vh;
+/* 전역 리셋 및 기본 설정 */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-#root{
-  background-color: white;
-  max-width: 600px;
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
-  height: 100%;
-  box-shadow: rgba(100, 100, 100, 0.2) 0px 0px 29px 0px;
-  padding: 0px 20px;
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    font-family: "NanumPenScript", -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    line-height: 1.6;
+    color: #2c3e50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
 
-body *{
-  font-family: "NanumPenScript";
+/* 메인 컨테이너 */
+#root {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    min-height: 100vh;
+    height: 100%;
+    box-shadow: 
+        0 0 60px rgba(102, 126, 234, 0.3),
+        0 0 100px rgba(118, 75, 162, 0.2);
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+    animation: containerFadeIn 1.2s ease-out;
+}
+
+#root::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 70%
+    );
+    pointer-events: none;
+    animation: shimmerBackground 6s ease-in-out infinite;
+}
+
+/* 글로벌 선택 스타일 */
+::selection {
+    background: rgba(102, 126, 234, 0.2);
+    color: #2c3e50;
+}
+
+::-moz-selection {
+    background: rgba(102, 126, 234, 0.2);
+    color: #2c3e50;
+}
+
+/* 포커스 스타일 */
+:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* 애니메이션 키프레임 */
+@keyframes containerFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shimmerBackground {
+    0%, 100% {
+        transform: translateX(-100%);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateX(100%);
+        opacity: 0.6;
+    }
+}
+
+/* 유틸리티 클래스 */
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.bounce-in {
+    animation: bounceIn 0.8s ease-out;
+}
+
+.scale-in {
+    animation: scaleIn 0.4s ease-out;
+}
+
+/* 유틸리티 애니메이션 키프레임 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    #root {
+        padding: 0 15px;
+        box-shadow: 
+            0 0 40px rgba(102, 126, 234, 0.2),
+            0 0 80px rgba(118, 75, 162, 0.1);
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+    
+    #root {
+        padding: 0 10px;
+        max-width: 100%;
+    }
+}
+
+/* 접근성 개선 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* 고대비 모드 지원 */
+@media (prefers-contrast: high) {
+    #root {
+        background: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    }
+    
+    body {
+        background: black;
+    }
+}
+
+/* 다크 테마 지원 */
+@media (prefers-color-scheme: dark) {
+    html, body {
+        background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    }
+    
+    #root {
+        background: rgba(44, 62, 80, 0.95);
+        color: #ecf0f1;
+        box-shadow: 
+            0 0 60px rgba(52, 73, 94, 0.5),
+            0 0 100px rgba(44, 62, 80, 0.3);
+    }
+    
+    ::selection {
+        background: rgba(52, 152, 219, 0.3);
+        color: #ecf0f1;
+    }
 }
